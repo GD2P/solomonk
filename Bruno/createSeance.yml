@@ -1,0 +1,27 @@
+info:
+  name: createSeance
+  type: http
+  seq: 3
+
+http:
+  method: POST
+  url: http://localhost:8080/api/seances
+  body:
+    type: json
+    data: |-
+      {
+        "seanceTypeId": 1,
+        "date": "2026-11-10",
+        "series": [
+          { "exerciceId": 1, "numero": 1, "reps": 12, "charge": 52 },
+          { "exerciceId": 1, "numero": 2, "reps": 10, "charge": 52 }
+        ]
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
