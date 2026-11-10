@@ -69,4 +69,12 @@ public class ExercicePrevu {
     public void setExercice(Exercice exercice) {
         this.exercice = exercice;
     }
+
+    public SeanceType getSeanceType() {
+        return seanceType;
+    }
+
+    public void setSeanceType(SeanceType seanceType) {
+        this.seanceType = seanceType;
+    }
 }
