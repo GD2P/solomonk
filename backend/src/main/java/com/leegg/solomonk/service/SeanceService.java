@@ -12,7 +12,7 @@ import com.leegg.solomonk.repository.ExerciceRepository;
 import com.leegg.solomonk.repository.SeanceRepository;
 import com.leegg.solomonk.repository.SeanceTypeRepository;
 import com.leegg.solomonk.repository.SerieRepository;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -67,5 +67,23 @@ public class SeanceService {
         }
 
         return new SeanceDto(seance.getId(), seance.getDate(), seanceType.getNom(), seriesDto);
+    }
+
+    @Transactional(readOnly = true)
+    public List<SeanceDto> findAll() {
+        List<SeanceDto> resultat = new ArrayList<>();
+
+        for (Seance seance : seanceRepository.findAll()) {
+            List<SerieDto> seriesDto = new ArrayList<>();
+
+            for (Serie serie : serieRepository.findBySeanceIdOrderByNumero(seance.getId())) {
+                seriesDto.add(new SerieDto(serie.getExercice().getNom(),
+                        serie.getNumero(), serie.getReps(), serie.getCharge()));
+            }
+
+            resultat.add(new SeanceDto(seance.getId(), seance.getDate(),
+                    seance.getSeanceType().getNom(), seriesDto));
+        }
+        return resultat;
     }
 }

@@ -24,4 +24,9 @@ public class SeanceController {
     public SeanceDto createSeance(@RequestBody CreerSeanceRequestDto request) {
         return seanceService.creer(request);
     }
+
+    @GetMapping
+    public List<SeanceDto> getSeances() {
+        return seanceService.findAll();
+    }
 }
