@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:17
+    container_name: solomonk-db
+    environment:
+      POSTGRES_DB: solomonk
+      POSTGRES_USER: solomonk
+      POSTGRES_PASSWORD: solomonk
+    ports:
+      - "5432:5432"
+    volumes:
+      - solomonk-data:/var/lib/postgresql/data
+
+volumes:
+  solomonk-data:
