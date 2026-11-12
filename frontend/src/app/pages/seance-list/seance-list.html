@@ -1,0 +1,53 @@
+<div class="min-h-screen bg-slate-50">
+  <div class="mx-auto max-w-2xl px-4 py-8">
+
+    <header class="mb-6 flex items-center justify-between">
+      <h1 class="text-2xl font-bold text-slate-900">Mes séances</h1>
+      <a routerLink="/seances/nouvelle"
+         class="rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white hover:bg-slate-700">
+        Nouvelle séance
+      </a>
+    </header>
+
+    @if (seances().length === 0) {
+    <p class="rounded-lg border border-dashed border-slate-300 p-6 text-center text-slate-500">
+      Aucune séance enregistrée pour l'instant.
+    </p>
+    }
+
+    <ul class="space-y-4">
+      @for (seance of seances(); track seance.id) {
+      <li class="rounded-xl bg-white p-5 shadow-sm ring-1 ring-slate-200">
+
+        <div class="mb-3 flex items-baseline justify-between">
+          <h2 class="text-lg font-semibold text-slate-900">{{ seance.seanceTypeNom }}</h2>
+          <span class="text-sm text-slate-500">{{ seance.date | date: 'dd/MM/yyyy' }}</span>
+        </div>
+
+        <table class="w-full text-sm">
+          <thead>
+          <tr class="text-left text-slate-500">
+            <th class="pb-1 font-medium">Exercice</th>
+            <th class="pb-1 font-medium">Série</th>
+            <th class="pb-1 font-medium">Reps</th>
+            <th class="pb-1 text-right font-medium">Charge</th>
+          </tr>
+          </thead>
+          <tbody>
+          @for (serie of seance.series; track $index) {
+          <tr class="border-t border-slate-100">
+            <td class="py-1.5">{{ serie.exerciceNom }}</td>
+            <td>{{ serie.numero }}</td>
+            <td>{{ serie.reps }}</td>
+            <td class="text-right">{{ serie.charge }} kg</td>
+          </tr>
+          }
+          </tbody>
+        </table>
+
+      </li>
+      }
+    </ul>
+
+  </div>
+</div>
